@@ -24,6 +24,7 @@ domain.
 '''
 
 import kivy
+
 kivy.require('1.0.6')
 
 from glob import glob
@@ -56,33 +57,42 @@ class Picture(Scatter):
 class PicturesApp(App):
 
     def build(self):
-
         # the root is created in pictures.kv
         root = self.root
 
         # get any files into images directory
         curdir = dirname(__file__)
         for filename in glob(join(curdir, 'images', '*')):
-#           try:
-#                # load the image
-#                picture = Picture(source=filename, rotation=randint(-30, 30))
-#                # add to the main field
-#                root.add_widget(picture)
-#            except Exception as e:
-#                Logger.exception('Pictures: Unable to load <%s>' % filename)
-            
-                btn = Button(text='%s' % filename, size_hint_y=None, height=44)
 
-                # for each button, attach a callback that will call the select() method
-                # on the dropdown. We'll pass the text of the button as the data of the
-                # selection.
-                btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            btn = Button(text='%s' % filename, size_hint_y=None, height=44)
 
-                # then add the button inside the dropdown
-                dropdown.add_widget(btn)
+            # for each button, attach a callback that will call the select() method
+            # on the dropdown. We'll pass the text of the button as the data of the
+            # selection.
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+
+            # then add the button inside the dropdown
+            dropdown.add_widget(btn)
+        # create a big main button
+        mainbutton = Button(text='Hello', size_hint=(None, None))
+
+        # show the dropdown menu when the main button is released
+        # note: all the bind() calls pass the instance of the caller (here, the
+        # mainbutton instance) as the first argument of the callback (here,
+        # dropdown.open.).
+        mainbutton.bind(on_release=dropdown.open)
+
+        # one last thing, listen for the selection in the dropdown list and
+        # assign the data to the button text.
+        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+
+        runTouchApp(mainbutton)
 
     def on_pause(self):
         return True
+
+
+
 
 
 if __name__ == '__main__':
