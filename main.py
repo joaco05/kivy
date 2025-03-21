@@ -27,9 +27,6 @@ import kivy
 
 kivy.require('1.0.6')
 
-from glob import glob
-from random import randint
-from os.path import join, dirname
 from kivy.app import App
 from kivy.logger import Logger
 from kivy.uix.scatter import Scatter
@@ -57,36 +54,7 @@ class Picture(Scatter):
 class PicturesApp(App):
 
     def build(self):
-        # the root is created in pictures.kv
-        root = self.root
-
-        # get any files into images directory
-        curdir = dirname(__file__)
-        for filename in glob(join(curdir, 'images', '*')):
-
-            btn = Button(text='%s' % filename, size_hint_y=None, height=44)
-
-            # for each button, attach a callback that will call the select() method
-            # on the dropdown. We'll pass the text of the button as the data of the
-            # selection.
-            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
-
-            # then add the button inside the dropdown
-            dropdown.add_widget(btn)
-        # create a big main button
-        mainbutton = Button(text='Hello', size_hint=(None, None))
-
-        # show the dropdown menu when the main button is released
-        # note: all the bind() calls pass the instance of the caller (here, the
-        # mainbutton instance) as the first argument of the callback (here,
-        # dropdown.open.).
-        mainbutton.bind(on_release=dropdown.open)
-
-        # one last thing, listen for the selection in the dropdown list and
-        # assign the data to the button text.
-        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
-
-        runTouchApp(mainbutton)
+       
 
     def on_pause(self):
         return True
