@@ -1,67 +1,50 @@
-'''
-Basic Picture Viewer
-====================
-
-This simple image browser demonstrates the scatter widget. You should
-see three framed photographs on a background. You can click and drag
-the photos around, or multi-touch to drop a red dot to scale and rotate the
-photos.
-
-The photos are loaded from the local images directory, while the background
-picture is from the data shipped with kivy in kivy/data/images/background.jpg.
-The file pictures.kv describes the interface and the file shadow32.png is
-the border to make the images look like framed photographs. Finally,
-the file android.txt is used to package the application for use with the
-Kivy Launcher Android application.
-
-For Android devices, you can copy/paste this directory into
-/sdcard/kivy/pictures on your Android device.
-
-The images in the image directory are from the Internet Archive,
-`https://archive.org/details/PublicDomainImages`, and are in the public
-domain.
-
-'''
-
-import kivy
-
-kivy.require('1.0.6')
-
 from kivy.app import App
-from kivy.logger import Logger
-from kivy.uix.scatter import Scatter
-from kivy.properties import StringProperty
 
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
-from kivy.base import runTouchApp
-
-dropdown = DropDown()
-
-
-class Picture(Scatter):
-    '''Picture is the class that will show the image with a white border and a
-    shadow. They are nothing here because almost everything is inside the
-    picture.kv. Check the rule named <Picture> inside the file, and you'll see
-    how the Picture() is really constructed and used.
-
-    The source property will be the filename to show.
-    '''
-
-    source = StringProperty(None)
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.uix.image import Image
 
 
-class PicturesApp(App):
+from helpers import nombres_imagenes, Guardar, Sepia, Gris, Negado
 
+class RootWidget(BoxLayout):
+    def __init__(self):
+        # Esta linea es necesaria por que sin ella
+        # se sobrescribe el init del padre y no inicializo
+        # bien la clase
+        super().__init__()
+        dropdown = DropDown()
+        imagenes = nombres_imagenes()
+        # Para colocar un dropdown con el nombre de las imagenes
+        # Creo un boton por cada imagen y lo agrego al widget dropdown
+        for imagen in imagenes:
+            # Quito el nombre de la ruta
+            nombre_de_imagen = imagen.split("\\").pop()
+            btn = Button(text='%s' % nombre_de_imagen, size_hint_y=None, height=44)
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(btn)
+        # Agrego un boton que aloje el widget dropdown
+        print(f"las ids son {self.ids}")
+        mainbutton = self.ids["botonazo"]
+        mainbutton.bind(on_release=dropdown.open)
+        mainbutton.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+        return
+        
+    
+
+
+
+class ProgramaApp(App):
     def build(self):
-       
-
-    def on_pause(self):
-        return True
+        return RootWidget()
 
 
 
+        
 
 
-if __name__ == '__main__':
-    PicturesApp().run()
+if __name__ == "__main__":
+    ProgramaApp().run()

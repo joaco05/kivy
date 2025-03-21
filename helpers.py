@@ -53,7 +53,7 @@ def Negado(image):
     return im2
 
 
-
+# Se ejecuta solo si corro el archivo fuera de una libreria
 if __name__ == "__main__":
 
     imagenes = nombres_imagenes()
