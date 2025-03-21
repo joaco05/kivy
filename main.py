@@ -34,6 +34,12 @@ from kivy.logger import Logger
 from kivy.uix.scatter import Scatter
 from kivy.properties import StringProperty
 
+from kivy.uix.dropdown import DropDown
+from kivy.uix.button import Button
+from kivy.base import runTouchApp
+
+dropdown = DropDown()
+
 
 class Picture(Scatter):
     '''Picture is the class that will show the image with a white border and a
@@ -57,13 +63,23 @@ class PicturesApp(App):
         # get any files into images directory
         curdir = dirname(__file__)
         for filename in glob(join(curdir, 'images', '*')):
-            try:
-                # load the image
-                picture = Picture(source=filename, rotation=randint(-30, 30))
-                # add to the main field
-                root.add_widget(picture)
-            except Exception as e:
-                Logger.exception('Pictures: Unable to load <%s>' % filename)
+#           try:
+#                # load the image
+#                picture = Picture(source=filename, rotation=randint(-30, 30))
+#                # add to the main field
+#                root.add_widget(picture)
+#            except Exception as e:
+#                Logger.exception('Pictures: Unable to load <%s>' % filename)
+            
+                btn = Button(text='%s' % filename, size_hint_y=None, height=44)
+
+                # for each button, attach a callback that will call the select() method
+                # on the dropdown. We'll pass the text of the button as the data of the
+                # selection.
+                btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+
+                # then add the button inside the dropdown
+                dropdown.add_widget(btn)
 
     def on_pause(self):
         return True
