@@ -1,1 +1,2 @@
-fimage
+pillow
+kivy[base]
