@@ -11,8 +11,8 @@ def nombres_imagenes():
         images.add(filename)
     return tuple(images)
 
-def Guardar(image):
-    imagen.save("./temp/tmp.png")
+def Guardar(image, filename = "./temp/tmp.png"):
+    image.save(filename)
 
 def Gris(image):
     im1 = Image.open(image)
