@@ -1,23 +1,69 @@
 #:kivy 2.3.1
 <RootWidget>:
-    Button:
-        id: botonazo
-        text: "Imagenes"
-        size_hint: (None, None)
+    GridLayout:
         
-    Button:
-        text: "gris"
-        size_hint: (None, None)
-    Button:
-        text: "negado"
-        size_hint: (None, None)
-    Button:
-        text: "sepia"
-        size_hint: (None, None)
-    TextInput:
-        size_hint: (None, None)
+        cols: 2
+        rows: 2
+        size_hint: (1, 1)
 
-    Button:
-        text: "Guardar"
-        size_hint: (None, None)
+        BoxLayout:
+            size_hint: (.5,.5)
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            orientation: 'vertical'
+
+            Image:
+                id: orig
+                source: './images/Wall.jpg'
+                size_hint: (1,1)
+
+        
+        
+        BoxLayout:
+            size_hint: (.5,.5)
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            orientation: 'vertical'
+
+            Image:
+                id: mod
+                source: './images/Wall.jpg'
+                size_hint: (1,1)
+        
+
+
+        RelativeLayout:
+            
+            size_hint: (.5,.5)
+            
+            Label:
+                text: "Original"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                pos_hint: {'x':(root.w_width/3000),'y':.8}
+
+            Button:
+                id: botonazo
+                text: "Imagenes"
+                size_hint: (pt(root.w_width / 2500), pt(root.w_height / 10000))
+                
+            Button:
+                text: "gris"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+            Button:
+                text: "negado"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+            Button:
+                text: "sepia"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+        
+        RelativeLayout:
+            
+            size_hint: (.5,.5)
+            
+            TextInput:
+                text: 'textinput'
+                size_hint: (pt(root.w_width / 3000), pt(root.w_height / 6000))
+                pos_hint: {'x':.5,'y':.5}
+
+            Button:
+                text: "Guardar"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
     
