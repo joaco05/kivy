@@ -1,23 +1,106 @@
 #:kivy 2.3.1
 <RootWidget>:
-    Button:
-        id: botonazo
-        text: "Imagenes"
-        size_hint: (None, None)
+    GridLayout:
         
-    Button:
-        text: "gris"
-        size_hint: (None, None)
-    Button:
-        text: "negado"
-        size_hint: (None, None)
-    Button:
-        text: "sepia"
-        size_hint: (None, None)
-    TextInput:
-        size_hint: (None, None)
+        cols: 2
+        rows: 2
+        size_hint: (1, 1)
 
-    Button:
-        text: "Guardar"
-        size_hint: (None, None)
+        BoxLayout: #Cuadrante 1
+            id: c1
+            spacing: 0
+            size_hint: (.5,.5)
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            orientation: 'vertical'
+
+            Image:
+                id: orig
+                source: './images/Wall.jpg'
+                size_hint: (1,.9)
+            
+            Label:
+                id: lab_orig
+                text: "Original"
+                valign: 'center'
+                font_size: sp(root.w_height / 25)
+                size_hint: (None,.1)
+                pos_hint: {'center_x':.5}
+
+        
+        
+        BoxLayout: #Cuadrante 2
+            id: c2
+            spacing: 0
+            size_hint: (.5,.5)
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            orientation: 'vertical'
+
+            Image:
+                id: mod
+                source: './images/Wall.jpg'
+                size_hint: (1,1)
+            
+            Label:
+                id: lab_mod
+                text: "Modificada"
+                valign: 'center'
+                font_size: sp(root.w_height / 25)
+                size_hint: (None,.1)
+                pos_hint: {'center_x':.5}
+        
+
+
+        BoxLayout: #Cuadrante 3 TODO Fix button sizes
+            id: c3
+            spacing: 10
+            size_hint: (.5,.5)
+            orientation: 'vertical'
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+
+            BoxLayout:
+                spacing: 10
+
+                Button:
+                    id: botonazo
+                    text: "Imagenes"
+                    size_hint: (pt(root.w_width / 5000), pt(root.w_height / 6000))
+                    pos_hint: {'center_x':.5, 'center_y':.5}
+            
+            BoxLayout:
+                spacing: 10
+
+                Button:
+                    id: filter_grey
+                    text: "gris"
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    pos_hint: {'center_y':.5}
+                Button:
+                    id: filter_invert
+                    text: "negado"
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    pos_hint: {'center_y':.5}
+                Button:
+                    id: filter_sepia
+                    text: "sepia"
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    pos_hint: {'center_y':.5}
+        
+        BoxLayout: #cuadrante 4
+            id: c4
+            spacing: 10
+            size_hint: (.5,.5)
+            orientation: 'horizontal'
+            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            
+            TextInput:
+                id: txt_in
+                text: 'textinput'
+                size_hint: (pt(root.w_width / 3000), pt(root.w_height / 6000))
+                pos_hint: {'center_y':.5}
+
+            Button:
+                id: save_as
+                text: "Guardar"
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                pos_hint: {'center_y':.5}
     

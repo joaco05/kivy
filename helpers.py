@@ -12,45 +12,35 @@ def nombres_imagenes():
     return tuple(images)
 
 def Guardar(image, filename = "./temp/tmp.png"):
-    image.save(filename)
+    try:
+        image.save(filename)
+    finally:
+        image.close()
 
 def Gris(image):
-    im1 = Image.open(image)
-    im2 = ImageOps.grayscale(im1) 
-    return im2 
-
+    with Image.open(image) as im1:
+        im2 = ImageOps.grayscale(im1)
+        return im2.copy()
 
 def Sepia(image):
-    img = Image.open(image)
-    width, height = img.size
+    with Image.open(image) as img:
+        width, height = img.size
+        new_img = img.copy()
+        pixels = new_img.load()
 
-    pixels = img.load() # Carga la imagen en un mapa de pixeles
-
-    for py in range(height):
-     for px in range(width):
-         r, g, b = img.getpixel((px, py))
-
-         tr = int(0.393 * r + 0.769 * g + 0.189 * b)
-         tg = int(0.349 * r + 0.686 * g + 0.168 * b)
-         tb = int(0.272 * r + 0.534 * g + 0.131 * b)
-
-         if tr > 255:
-             tr = 255
-
-         if tg > 255:
-             tg = 255
-
-         if tb > 255:
-             tb = 255
-
-         pixels[px, py] = (tr,tg,tb)
-
-    return img
+        for py in range(height):
+            for px in range(width):
+                r, g, b = img.getpixel((px, py))
+                tr = min(255, int(0.393 * r + 0.769 * g + 0.189 * b))
+                tg = min(255, int(0.349 * r + 0.686 * g + 0.168 * b))
+                tb = min(255, int(0.272 * r + 0.534 * g + 0.131 * b))
+                pixels[px, py] = (tr,tg,tb)
+        return new_img
 
 def Negado(image):
-    im1 = Image.open(image)
-    im2 = ImageOps.invert(im1) 
-    return im2
+    with Image.open(image) as im1:
+        im2 = ImageOps.invert(im1)
+        return im2.copy()
 
 
 # Se ejecuta solo si corro el archivo fuera de una libreria
