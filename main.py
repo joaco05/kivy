@@ -18,14 +18,6 @@ class RootWidget(BoxLayout):
     w_width = 0
     w_height = 0
 
-<<<<<<< HEAD
-=======
-    def on_window_resize(self, window, width, height):
-        # Esta funcion se llama cada vez que se redimensiona la ventana
-        # y actualiza el tamaño de la ventana
-        self.w_width, self.w_height = Window.size
-
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
     def __init__(self):
 
         self.w_width, self.w_height = Window.size #Consigo el ancho y alto de la ventana
@@ -34,14 +26,7 @@ class RootWidget(BoxLayout):
         # bien la clase
         
         super().__init__()
-<<<<<<< HEAD
         Window.bind(on_resize=self.on_window_resize)
-=======
-
-        self.w_width, self.w_height = Window.size #Consigo el ancho y alto de la ventana
-        Window.bind(on_resize=self.on_window_resize)
-
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
         dropdown = DropDown()
         imagenes = nombres_imagenes()
         # Para colocar un dropdown con el nombre de las imagenes
@@ -55,10 +40,7 @@ class RootWidget(BoxLayout):
         # Agrego un boton que aloje el widget dropdown
         print(f"las ids son {self.ids}")
 
-<<<<<<< HEAD
         # vinculo objetos con ids
-=======
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
         mainbutton = self.ids["botonazo"]
         original = self.ids["orig"]
 
@@ -85,6 +67,7 @@ class RootWidget(BoxLayout):
         return
         
     def aplicar_filtro(self, filter_func):
+        print('aplicando filtro')
         if self.esta_procesando:
             return
             
@@ -97,19 +80,25 @@ class RootWidget(BoxLayout):
             if not os.path.exists("./temp"):
                 os.makedirs("./temp")
                 
-            setattr(modificada, 'source', '')
+            modificada.source = original.source
             
             match(filter_func):
                 case "gris":
                     imagen = Gris(original.source)
+                    print('gris')
                 case "negado":
                     imagen = Negado(original.source)
+                    print('negado')
                 case "sepia":
                     imagen = Sepia(original.source)
-                    
+                    print('sepia')
+            
+            os.remove('./temp/tmp.png')
             Guardar(imagen)
             
-            setattr(modificada, 'source', temp_image)
+            modificada.source = temp_image
+            modificada.reload()
+            print('setimg')
             
         except Exception as e:
             print(f"Error aplicando filtro: {e}")
@@ -122,10 +111,6 @@ class ProgramaApp(App):
     def build(self):
         print(Window.size)
         return RootWidget()
-
-
-
-        
 
 
 if __name__ == "__main__":

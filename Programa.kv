@@ -6,13 +6,9 @@
         rows: 2
         size_hint: (1, 1)
 
-<<<<<<< HEAD
         BoxLayout: #Cuadrante 1
             id: c1
             spacing: 0
-=======
-        BoxLayout:
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
             size_hint: (.5,.5)
             padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
             orientation: 'vertical'
@@ -20,7 +16,6 @@
             Image:
                 id: orig
                 source: './images/Wall.jpg'
-<<<<<<< HEAD
                 size_hint: (1,.9)
             
             Label:
@@ -36,13 +31,6 @@
         BoxLayout: #Cuadrante 2
             id: c2
             spacing: 0
-=======
-                size_hint: (1,1)
-
-        
-        
-        BoxLayout:
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
             size_hint: (.5,.5)
             padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
             orientation: 'vertical'
@@ -51,7 +39,6 @@
                 id: mod
                 source: './images/Wall.jpg'
                 size_hint: (1,1)
-<<<<<<< HEAD
             
             Label:
                 id: lab_mod
@@ -68,10 +55,11 @@
             spacing: 10
             size_hint: (.5,.5)
             orientation: 'vertical'
-            padding: [root.w_width / 20, root.height/20, root.w_width / 20, 0]
+            padding: [root.w_width / 20, 0, root.w_width / 20, 0]
 
             BoxLayout:
                 spacing: 10
+                size_hint: (1,.5)
 
                 Button:
                     id: botonazo
@@ -80,6 +68,7 @@
                     pos_hint: {'center_x':.5, 'center_y':.5}
             
             BoxLayout:
+                size_hint: (1,.5)
                 spacing: 10
 
                 Button:
@@ -116,45 +105,3 @@
                 text: "Guardar"
                 size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
                 pos_hint: {'center_y':.5}
-=======
-        
-
-
-        RelativeLayout:
-            
-            size_hint: (.5,.5)
-            
-            Label:
-                text: "Original"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
-                pos_hint: {'x':(root.w_width/3000),'y':.8}
-
-            Button:
-                id: botonazo
-                text: "Imagenes"
-                size_hint: (pt(root.w_width / 2500), pt(root.w_height / 10000))
-                
-            Button:
-                text: "gris"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
-            Button:
-                text: "negado"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
-            Button:
-                text: "sepia"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
-        
-        RelativeLayout:
-            
-            size_hint: (.5,.5)
-            
-            TextInput:
-                text: 'textinput'
-                size_hint: (pt(root.w_width / 3000), pt(root.w_height / 6000))
-                pos_hint: {'x':.5,'y':.5}
-
-            Button:
-                text: "Guardar"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
->>>>>>> 3507a725cb4fa10a75c74bc9fb1e8931a6c3174b
-    
