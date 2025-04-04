@@ -43,7 +43,12 @@ class RootWidget(BoxLayout):
         # vinculo objetos con ids
         mainbutton = self.ids["botonazo"]
         original = self.ids["orig"]
-
+        modificado = self.ids["mod"]
+        texto = self.ids["txt_in"]
+        guardar_imagen = self.ids["save_as"]
+        # actualizar atributo texto
+        guardar_imagen.bind(on_press=lambda x: Guardar(modificado.source, filename=f"./resultados/{texto.text}.png"))
+        # actualizar dropdown
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(original, 'source', f"./images/{x}"))
 
@@ -65,7 +70,13 @@ class RootWidget(BoxLayout):
         # y actualiza el tamaño de la ventana
         self.w_width, self.w_height = Window.size
         return
-        
+    
+    def guardar_imagen(self, text):
+        print("guardando imagen")
+        modificada = self.ids["mod"]
+        source = modificada.source
+
+
     def aplicar_filtro(self, filter_func):
         print('aplicando filtro')
         if self.esta_procesando:
@@ -76,7 +87,6 @@ class RootWidget(BoxLayout):
             original = self.ids["orig"]
             modificada = self.ids["mod"]
             
-            # Create temp directory if it doesn't exist
             if not os.path.exists("./temp"):
                 os.makedirs("./temp")
                 
@@ -93,7 +103,6 @@ class RootWidget(BoxLayout):
                     imagen = Sepia(original.source)
                     print('sepia')
             
-            os.remove('./temp/tmp.png')
             Guardar(imagen)
             
             modificada.source = temp_image

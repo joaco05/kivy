@@ -12,10 +12,17 @@ def nombres_imagenes():
     return tuple(images)
 
 def Guardar(image, filename = "./temp/tmp.png"):
-    try:
-        image.save(filename)
-    finally:
-        image.close()
+        if type(image) is str:
+            print(image, filename)
+            with Image.open(image) as im1:
+                im1.save(filename)
+        else:
+            try:
+                image.save(filename)
+            finally:
+                image.close()
+
+
 
 def Gris(image):
     with Image.open(image) as im1:
