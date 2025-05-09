@@ -3,16 +3,14 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
-from kivy.uix.label import Label
-from kivy.uix.image import Image
 from kivy.core.window import Window
+from kivy.metrics import sp
+from kivy.utils import platform #Gets OS
 
 from helpers import nombres_imagenes, Guardar, Sepia, Gris, Negado
 import os
 
 
-#TODO add on_resize resizes
 temp_image = "./temp/tmp.png"
 class RootWidget(BoxLayout):
     w_width = 0
@@ -21,24 +19,35 @@ class RootWidget(BoxLayout):
     def __init__(self):
 
         self.w_width, self.w_height = Window.size #Consigo el ancho y alto de la ventana
+        
+        super().__init__()
         # Esta linea es necesaria por que sin ella
         # se sobrescribe el init del padre y no inicializo
         # bien la clase
         
-        super().__init__(**kwargs)
-        Window.bind(on_resize=self.on_window_resize)
         dropdown = DropDown()
         imagenes = nombres_imagenes()
         # Para colocar un dropdown con el nombre de las imagenes
         # Creo un boton por cada imagen y lo agrego al widget dropdown
-        for imagen in imagenes:
-            # Quito el nombre de la ruta
-            nombre_de_imagen = imagen.split("\\").pop()
-            btn = Button(text='%s' % nombre_de_imagen, size_hint_y=None, height=44)
+        for imagen in imagenes:       
+            
+            if platform == 'win':
+                nombre_de_imagen = imagen.split("\\").pop() # Quito el nombre de la ruta
+            else:
+                nombre_de_imagen = imagen.split("/").pop() # Quito el nombre de la ruta
+
+            btn = Button(
+                text = '%s' % nombre_de_imagen, 
+                size_hint_y = None, 
+                height = 44, 
+                background_normal = '', 
+                background_color = (0, 0.839, 0.662, 1), 
+                color = (0,0,0,1), 
+                font_size=sp(self.w_height / 35)) 
+            
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
         # Agrego un boton que aloje el widget dropdown
-        print(f"las ids son {self.ids}")
 
         # vinculo objetos con ids
         mainbutton = self.ids["botonazo"]
@@ -46,8 +55,10 @@ class RootWidget(BoxLayout):
         modificado = self.ids["mod"]
         texto = self.ids["txt_in"]
         guardar_imagen = self.ids["save_as"]
+
         # actualizar atributo texto
         guardar_imagen.bind(on_press=lambda x: Guardar(modificado.source, filename=f"./resultados/{texto.text}.png"))
+        
         # actualizar dropdown
         mainbutton.bind(on_release=dropdown.open)
         dropdown.bind(on_select=lambda instance, x: setattr(original, 'source', f"./images/{x}"))
@@ -62,13 +73,6 @@ class RootWidget(BoxLayout):
         gris.bind(on_press=lambda x: self.aplicar_filtro("gris"))
         negado.bind(on_press=lambda x: self.aplicar_filtro("negado"))
 
-        return
-    
-
-    def on_window_resize(self, window, width, height):
-        # Esta funcion se llama cada vez que se redimensiona la ventana
-        # y actualiza el tamaño de la ventana
-        self.w_width, self.w_height = Window.size
         return
     
     def guardar_imagen(self, text):

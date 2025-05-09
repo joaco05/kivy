@@ -1,7 +1,13 @@
 #:kivy 2.3.1
 <RootWidget>:
     GridLayout:
-        
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1 
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
         cols: 2
         rows: 2
         size_hint: (1, 1)
@@ -15,12 +21,13 @@
 
             Image:
                 id: orig
-                source: './images/Wall.jpg'
+                source: './attributes/photo_icon.png'
                 size_hint: (1,.9)
             
             Label:
                 id: lab_orig
                 text: "Original"
+                color: (0,0,0,1)
                 valign: 'center'
                 font_size: sp(root.w_height / 25)
                 size_hint: (None,.1)
@@ -37,20 +44,20 @@
 
             Image:
                 id: mod
-                source: './images/Wall.jpg'
+                source: './attributes/photo_icon.png'
                 size_hint: (1,1)
             
             Label:
                 id: lab_mod
                 text: "Modificada"
+                color: (0,0,0,1)
                 valign: 'center'
                 font_size: sp(root.w_height / 25)
                 size_hint: (None,.1)
                 pos_hint: {'center_x':.5}
-        
 
 
-        BoxLayout: #Cuadrante 3 TODO Fix button sizes
+        BoxLayout: #Cuadrante 3
             id: c3
             spacing: 10
             size_hint: (.5,.5)
@@ -60,31 +67,51 @@
             BoxLayout:
                 spacing: 10
                 size_hint: (1,.5)
+                padding: [10, 0]
 
                 Button:
                     id: botonazo
+                    background_normal: '' #background when nothings happening
+                    background_color: (0, 0.839, 0.662, 1)
+                    font_size: sp(root.w_height / 35)
+                    color: (0,0,0.0) #text color
                     text: "Imagenes"
-                    size_hint: (pt(root.w_width / 5000), pt(root.w_height / 6000))
+                    size_hint: (pt(root.w_width / 5000), pt(root.w_height / 5000))
                     pos_hint: {'center_x':.5, 'center_y':.5}
             
             BoxLayout:
                 size_hint: (1,.5)
                 spacing: 10
+                padding: [5, 0]
 
                 Button:
                     id: filter_grey
+                    background_normal: '' #background when nothings happening
+                    background_color: (0, 0.839, 0.662, 1)
+                    font_size: sp(root.w_height / 35)
+                    color: (0,0,0.0) #text color
                     text: "gris"
-                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 5000))
                     pos_hint: {'center_y':.5}
+                
                 Button:
                     id: filter_invert
+                    background_normal: '' #background when nothings happening
+                    background_color: (0, 0.839, 0.662, 1)
+                    font_size: sp(root.w_height / 35)
+                    color: (0,0,0.0) #text color
                     text: "negado"
-                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 5000))
                     pos_hint: {'center_y':.5}
+                
                 Button:
                     id: filter_sepia
+                    background_normal: '' #background when nothings happening
+                    background_color: (0, 0.839, 0.662, 1)
+                    font_size: sp(root.w_height / 35)
+                    color: (0,0,0,1) #text color
                     text: "sepia"
-                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                    size_hint: (pt(root.w_width / 6000), pt(root.w_height / 5000))
                     pos_hint: {'center_y':.5}
         
         BoxLayout: #cuadrante 4
@@ -96,12 +123,19 @@
             
             TextInput:
                 id: txt_in
-                text: 'Ingrese nombre de archivo a guardar'
-                size_hint: (pt(root.w_width / 3000), pt(root.w_height / 6000))
+                multiline: False
+                text: 'nombre de archivo'
+                background_normal: ''
+                background_color: (0, 0.839, 0.662, 1)
+                size_hint: (pt(root.w_width / 3000), pt(root.w_height / 8000))
                 pos_hint: {'center_y':.5}
 
             Button:
                 id: save_as
+                background_normal: '' #background when nothings happening
+                background_color: (0, 0.839, 0.662, 1)
+                font_size: sp(root.w_height / 35)
+                color: (0,0,0,1) #text color
                 text: "Guardar"
-                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 6000))
+                size_hint: (pt(root.w_width / 6000), pt(root.w_height / 8000))
                 pos_hint: {'center_y':.5}

@@ -1,5 +1,6 @@
 from glob import glob
 from os.path import join, dirname
+import os
 
 from PIL import Image, ImageOps
 
@@ -15,6 +16,8 @@ def Guardar(image, filename = "./temp/tmp.png"):
         if type(image) is str:
             print(image, filename)
             with Image.open(image) as im1:
+                if not os.path.exists("./resultados"):
+                    os.makedirs("./resultados")
                 im1.save(filename)
         else:
             try:
