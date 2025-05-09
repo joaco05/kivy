@@ -25,7 +25,7 @@ class RootWidget(BoxLayout):
         # se sobrescribe el init del padre y no inicializo
         # bien la clase
         
-        super().__init__()
+        super().__init__(**kwargs)
         Window.bind(on_resize=self.on_window_resize)
         dropdown = DropDown()
         imagenes = nombres_imagenes()
